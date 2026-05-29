@@ -31,13 +31,7 @@ frameborder="0">
 
 {: .warning }
 
-Pour intégrer la visualisation 3D de votre projet Onshape :
 
-1. Activez le partage du modèle dans Onshape
-2. Activez l’option Export
-3. Allez sur https://modelembedder.net
-4. Générez le lien d’intégration
-5. Remplacez le lien dans l’iframe ci-dessus
 
 ---
 
@@ -77,14 +71,13 @@ Cette documentation contient :
 - Le montage mécanique
 - Le câblage électronique
 - Le code Arduino
-- Les fichiers 3D
 - Les tests et améliorations
 
 ---
 
 # Équipe du projet
 
-- Nom de l’équipe
-- Membres du groupe
-- Année scolaire
-- Établissement
+- OTTOMAN
+- Yahi ines, Yayilkan fatma nur, Ouhamou douaa
+- 1 année en cycle pré-ingenieur
+- UniLaSalle
