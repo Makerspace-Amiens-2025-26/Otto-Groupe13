@@ -5,41 +5,86 @@ title: Accueil
 permalink: /
 ---
 
-# Bienvenue sur notre documentation
+# Bienvenue sur la documentation du robot Otto 🤖
 
-Bienvenue dans la documentation du projet XY. Ce site a pour but de fournir toutes les informations nécessaires pour comprendre, utiliser et reproduire efficacement notre projet.
+Bienvenue dans la documentation officielle du projet **Otto**.  
+Ce site a pour objectif de présenter toutes les informations nécessaires pour comprendre, assembler, programmer et utiliser efficacement notre robot.
 
-[Notre projet sur Onshape](https://cad.onshape.com/documents/2860ed3d58f1b518e6857770/w/82b3c0e474623135ccb76fa3/e/0cab16137cd459ee83ebe56e?renderMode=0&uiState=6936dc0e23fecc27d34268b2){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[Notre repo GitHub](https://github.com/Makerspace-Amiens/template-project){: .btn .fs-5 .mb-4 .mb-md-0 }
+Otto est un robot éducatif conçu pour apprendre la robotique, l’impression 3D et la programmation de manière simple et amusante.
 
-<iframe height="600" width="100%" src="https://modelembedder.net/embed?did=2860ed3d58f1b518e6857770&wvm=v&wvmid=6280fca954e7770df59e5a2f&eid=0cab16137cd459ee83ebe56e&elementType=ASSEMBLY" frameborder="0"></iframe>
+[Voir notre projet Onshape](https://cad.onshape.com/)
+{: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
-{: .warning }
->Pour intégrer la visualisation de votre projet Onshape, utilisez le site https://modelembedder.net . Activez le partage par lien via l'outil de partage de Onshape. n'oubliez pas d'activer l'option "export". Puis completez l'iframe ci-dessus avec le lien généré par le site https://modelembedder.net. Vous pouvez mettre à jour également le bouton avec le lien de partage de votre modèle.
-
-
-## À propos du Projet
-
-Décrivez ici en quelques lignes l'objectif et l'aperçu général de votre projet. Quel est son but ? À qui est-il destiné ? Quels problèmes cherche-t-il à résoudre ?
-
-
-## Poster
-
-Ici vous publierez le poster de votre projet.
-
-![Poster projet](images/poster.jpg)
-
-## Vidéo
-
-Ici vous publierez la vidéo de votre projet. 
-- 1min30 au format vertical
-- Présentation du projet 
-- Des explication du fonctionnement du projet
-- Des vues du projet / Prototype / Application etc... 
-- Des plans du fonctionnement (même basique ou des éléments séparés)
-- Une conclusion
-- Si en stockage local : <50mo
-
-<video src="images/intro_amiens.mp4" controls title="Title"  style="width: 100%;"></video>
+[Voir notre dépôt GitHub](https://github.com/)
+{: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
+
+## Aperçu du robot
+
+<iframe 
+height="600" 
+width="100%" 
+src="https://modelembedder.net/embed?did=2860ed3d58f1b518e6857770&wvm=v&wvmid=6280fca954e7770df59e5a2f&eid=0cab16137cd459ee83ebe56e&elementType=ASSEMBLY" 
+frameborder="0">
+</iframe>
+
+{: .warning }
+
+Pour intégrer la visualisation 3D de votre projet Onshape :
+
+1. Activez le partage du modèle dans Onshape
+2. Activez l’option Export
+3. Allez sur https://modelembedder.net
+4. Générez le lien d’intégration
+5. Remplacez le lien dans l’iframe ci-dessus
+
+---
+
+# À propos du projet
+
+Le robot Otto est un robot programmable capable de marcher, détecter des obstacles et interagir avec son environnement.
+
+## Objectifs du projet
+
+- Découvrir la robotique
+- Apprendre la programmation Arduino
+- Comprendre l’électronique
+- Réaliser un robot imprimé en 3D
+
+## Fonctionnalités
+
+- Détection d’obstacles
+- Déplacements automatiques
+- Effets sonores
+- Animation avec servomoteurs
+- Contrôle programmable
+
+## Technologies utilisées
+
+- Arduino Nano
+- Capteur ultrason
+- Servomoteurs SG90
+- Impression 3D
+- C++
+
+---
+
+# Structure de la documentation
+
+Cette documentation contient :
+
+- Le montage mécanique
+- Le câblage électronique
+- Le code Arduino
+- Les fichiers 3D
+- Les tests et améliorations
+
+---
+
+# Équipe du projet
+
+- Nom de l’équipe
+- Membres du groupe
+- Année scolaire
+- Établissement
