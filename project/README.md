@@ -7,44 +7,88 @@ Projet réalisé dans le cadre du module de robotique embarquée à UniLaSalle A
 # Sommaire
 
 1. Présentation du projet  
-2. Matériel utilisé  
-3. Architecture du système  
-4. Fonctionnement du programme  
-5. Difficultés rencontrées  
-6. Résultats obtenus  
-7. Utilisation du robot  
-8. Améliorations possibles  
+2. Objectifs du projet  
+3. Matériel utilisé  
+4. Architecture du système  
+5. Fonctionnement du programme  
+6. Difficultés rencontrées et solutions apportées  
+7. Résultats obtenus  
+8. Guide d’utilisation  
+9. Améliorations possibles  
+10. Conclusion  
 
 ---
 
 # 1. Présentation du projet
 
-Le projet consiste à programmer un robot bipède Otto MKS à l’aide d’une carte Seeed XIAO ESP32-C3.
+Dans le cadre du cours de robotique embarquée, nous avons travaillé sur un robot bipède Otto MKS basé sur une carte Seeed XIAO ESP32-C3.
 
-L’objectif était de développer un robot capable de marcher en ligne droite lors d’une compétition de vitesse et de stabilité. Le robot est contrôlé à distance grâce au Bluetooth BLE avec l’application RemoteXY.
+Le but du projet était de programmer un robot capable de marcher de manière stable et autonome tout en étant contrôlable à distance via Bluetooth BLE depuis un smartphone.
 
-Le système comprend :
-- 4 servomoteurs ;
-- un capteur ultrason ;
+Le projet devait répondre à plusieurs contraintes :
+- assurer une marche fluide ;
+- limiter les déséquilibres ;
+- contrôler les servomoteurs avec précision ;
+- intégrer un mode automatique ;
+- détecter les obstacles ;
+- réussir un parcours pendant une compétition.
+
+Le robot dispose de plusieurs éléments :
+- 4 servomoteurs pour les mouvements ;
+- un capteur ultrason HC-SR04 ;
 - un buzzer ;
-- une communication Bluetooth BLE.
+- une batterie LiPo ;
+- une connexion Bluetooth BLE.
+
+L’ensemble du projet a été programmé sous Arduino IDE en langage C++.
 
 ---
 
-# 2. Matériel utilisé
+# 2. Objectifs du projet
+
+Les objectifs principaux étaient :
+- comprendre le fonctionnement d’un robot bipède ;
+- utiliser un microcontrôleur ESP32 ;
+- programmer des servomoteurs ;
+- mettre en place une communication Bluetooth ;
+- développer une logique de déplacement ;
+- corriger les défauts mécaniques du robot ;
+- améliorer la stabilité et la vitesse du déplacement.
+
+Une partie importante du projet consistait aussi à effectuer plusieurs tests afin de calibrer correctement les mouvements.
+
+---
+
+# 3. Matériel utilisé
 
 | Composant | Référence | Fonction |
 |---|---|---|
-| Carte microcontrôleur | Seeed XIAO ESP32-C3 | Gestion du robot |
+| Carte microcontrôleur | Seeed XIAO ESP32-C3 | Gestion du programme |
 | Servomoteurs | SG90 | Mouvement des jambes |
 | Capteur ultrason | HC-SR04 | Détection d’obstacles |
-| Buzzer | 5V passif | Signal sonore |
+| Buzzer | Buzzer passif 5V | Signal sonore |
 | Batterie | LiPo 3.7V | Alimentation |
-| Châssis | Otto MKS | Structure du robot |
+| Structure | Otto MKS | Châssis du robot |
 
 ---
 
-# 3. Architecture du système
+## Connexions utilisées
+
+| Broche ESP32 | Élément connecté |
+|---|---|
+| D7 | Hanche gauche |
+| D8 | Hanche droite |
+| D9 | Pied gauche |
+| D10 | Pied droit |
+| GPIO 2 | TRIG ultrason |
+| GPIO 1 | ECHO ultrason |
+| GPIO 0 | Buzzer |
+
+---
+
+# 4. Architecture du système
+
+Le système fonctionne grâce à une communication Bluetooth entre le smartphone et le robot.
 
 ```text
 Smartphone
@@ -56,22 +100,32 @@ ESP32-C3
 Servos  Ultrason  Buzzer
 ```
 
-Le smartphone envoie les commandes via Bluetooth.  
-La carte ESP32 traite les informations et contrôle les différents composants du robot.
+Le smartphone envoie les commandes au robot via l’application RemoteXY.
+
+La carte ESP32 :
+- reçoit les commandes ;
+- calcule les mouvements ;
+- contrôle les servomoteurs ;
+- lit le capteur ultrason ;
+- gère les différents modes.
 
 ---
 
-# 4. Fonctionnement du programme
+# 5. Fonctionnement du programme
 
-Le programme principal est contenu dans le fichier :
+Le programme principal est regroupé dans un fichier unique :
 
 ```cpp
 Robot_Otto_MKS.ino
 ```
 
+---
+
 ## Principe de locomotion
 
-Le déplacement du robot repose sur un mouvement sinusoïdal des servomoteurs.
+Le déplacement du robot repose sur des fonctions sinusoïdales.
+
+Chaque servo suit une trajectoire périodique afin de reproduire un mouvement de marche.
 
 ```cpp
 Hanche droite = 90 + A * sin(angle)
@@ -81,7 +135,9 @@ Pied droit  = 90 + A * sin(angle + PI/2)
 Pied gauche = 90 - A * sin(angle + PI/2)
 ```
 
-Ce système permet d’obtenir une marche plus fluide et plus stable.
+Le décalage de phase permet d’obtenir une alternance entre les jambes.
+
+Quand une jambe avance, l’autre reste en appui pour maintenir l’équilibre.
 
 ---
 
@@ -92,96 +148,193 @@ Ce système permet d’obtenir une marche plus fluide et plus stable.
 #define VITESSE_PAS 8
 ```
 
-- `PAS_ANGLE` : précision du mouvement ;
-- `VITESSE_PAS` : vitesse de déplacement.
+Ces paramètres permettent de régler :
+- la fluidité des mouvements ;
+- la vitesse du robot ;
+- le nombre d’itérations.
 
 ---
 
-## Modes disponibles
+## Modes de fonctionnement
 
-| Mode | Description |
-|---|---|
-| Manuel | Contrôle avec joystick |
-| Automatique | Détection d’obstacle |
+Le robot possède deux modes.
 
-En mode manuel, l’utilisateur peut :
+### Mode manuel
+
+Le robot est contrôlé depuis le smartphone :
 - avancer ;
 - reculer ;
 - tourner ;
-- lancer une animation ;
-- jouer une mélodie.
+- jouer une mélodie ;
+- effectuer un mouvement de salutation.
+
+### Mode automatique
+
+Le robot avance seul et s’arrête lorsqu’un obstacle est détecté grâce au capteur ultrason.
+
+---
+
+## Détection d’obstacle
+
+Le capteur HC-SR04 mesure la distance devant le robot.
+
+```cpp
+if (distance < DISTANCE_OBSTACLE_CM) {
+    positionRepos();
+}
+```
+
+Le robot passe alors en position de repos afin d’éviter une collision.
 
 ---
 
 ## Correction de trajectoire
 
-Une variable a été ajoutée pour corriger la dérive du robot :
+Pendant les essais, le robot avait tendance à dévier vers la gauche.
+
+Une variable de correction a été ajoutée :
 
 ```cpp
 int biasPied = +5;
 ```
 
-Cette correction permet d’équilibrer les mouvements des pieds.
+Cette variable modifie légèrement l’amplitude d’un pied afin de compenser l’asymétrie mécanique.
 
 ---
 
-# 5. Difficultés rencontrées
+# 6. Difficultés rencontrées et solutions apportées
 
-## Erreur de compilation
+## 6.1 Erreur de compilation
 
-Erreur obtenue :
+Lors des premiers essais, une erreur de compilation apparaissait :
 
 ```cpp
 'playMelody' was not declared in this scope
 ```
 
-Cause :
-fonction appelée avant sa déclaration.
+### Cause
 
-Solution :
-ajout des prototypes de fonctions en début de programme.
+La fonction était appelée avant sa déclaration.
 
----
+### Solution
 
-## Robot trop lent
+Ajout des prototypes de fonctions au début du programme :
 
-Le robot avançait difficilement au début.
-
-Causes :
-- trop d’itérations ;
-- lecture excessive du capteur ultrason.
-
-Solutions :
-- augmentation du pas angulaire ;
-- réduction du délai ;
-- optimisation de la lecture du capteur.
+```cpp
+void playMelody();
+void marche(int direction);
+void tourner(int direction);
+```
 
 ---
 
-## Dérive pendant la marche
+## 6.2 Robot trop lent
 
-Le robot déviait progressivement vers la gauche.
+Le robot avançait très lentement au début du projet.
 
-Solution :
-mise en place d’une correction logicielle avec `biasPied`.
+### Causes
+- trop d’itérations dans les boucles ;
+- délai trop élevé entre les mouvements ;
+- lecture du capteur ultrason trop fréquente.
+
+### Solution
+
+Les paramètres ont été modifiés :
+
+```cpp
+#define PAS_ANGLE 10
+#define VITESSE_PAS 3
+```
+
+Le capteur ultrason a également été lu une seule fois par cycle.
+
+### Résultat
+
+Le robot est devenu beaucoup plus rapide.
 
 ---
 
-# 6. Résultats obtenus
+## 6.3 Robot qui glissait
+
+Le robot glissait sur la table sans réellement marcher.
+
+### Cause
+
+Les pieds ne se levaient pas suffisamment pendant le mouvement.
+
+### Solution
+
+Modification du déphasage entre les jambes et les pieds ainsi qu’augmentation de l’amplitude.
+
+Cela a permis d’obtenir une marche plus naturelle.
+
+---
+
+## 6.4 Dérive pendant la marche
+
+Après plusieurs pas, le robot déviait progressivement vers la gauche.
+
+### Analyse
+
+Le problème ne venait pas du montage mécanique mais d’un déséquilibre dans le cycle de marche.
+
+### Solution
+
+Ajout de la variable :
+
+```cpp
+int biasPied = +5;
+```
+
+Cette correction améliore la trajectoire du robot.
+
+---
+
+## 6.5 Instabilité des servomoteurs
+
+Certains servos vibraient fortement.
+
+### Causes possibles
+- alimentation insuffisante ;
+- bruit électrique ;
+- angles trop importants.
+
+### Solution
+- limitation des amplitudes ;
+- meilleure fixation des servos ;
+- alimentation plus stable.
+
+---
+
+## 6.6 Problèmes Bluetooth
+
+Au début, la connexion BLE se déconnectait régulièrement.
+
+### Solution
+- réduction du nombre de données envoyées ;
+- simplification de l’interface RemoteXY ;
+- redémarrage propre de la connexion.
+
+---
+
+# 7. Résultats obtenus
 
 | Critère | Résultat |
 |---|---|
 | Marche fonctionnelle | Oui |
-| Contrôle Bluetooth | Oui |
-| Détection d’obstacle | Oui |
-| Stabilité | Correcte |
+| Contrôle Bluetooth | Fonctionnel |
+| Détection d’obstacle | Fonctionnelle |
 | Vitesse améliorée | Oui |
+| Stabilité correcte | Oui |
+| Parcours réalisé | Oui |
 
-Le robot a réussi à effectuer le parcours demandé pendant la compétition.
+Le robot a réussi à terminer le parcours demandé pendant la compétition.
+
+Même si une légère dérive restait présente, les performances obtenues étaient satisfaisantes.
 
 ---
 
-# 7. Utilisation du robot
+# 8. Guide d’utilisation
 
 ## Logiciels nécessaires
 
@@ -192,11 +345,11 @@ Le robot a réussi à effectuer le parcours demandé pendant la compétition.
 
 ---
 
-## Téléversement
+## Téléversement du programme
 
 1. Brancher le robot en USB  
 2. Ouvrir le fichier `.ino`  
-3. Sélectionner la carte ESP32-C3  
+3. Sélectionner la carte `XIAO ESP32C3`  
 4. Choisir le bon port COM  
 5. Cliquer sur "Téléverser"
 
@@ -207,30 +360,52 @@ Le robot a réussi à effectuer le parcours demandé pendant la compétition.
 1. Ouvrir l’application RemoteXY  
 2. Rechercher le robot  
 3. Entrer le mot de passe  
-4. Utiliser l’interface de contrôle
+4. Utiliser les commandes à l’écran
 
 ---
 
-# 8. Améliorations possibles
+## Commandes disponibles
 
-Des améliorations peuvent être ajoutées :
-- intégration d’un gyroscope ;
-- meilleure correction de trajectoire ;
-- réglage de vitesse depuis le smartphone ;
-- amélioration du mode autonome ;
-- affichage du niveau de batterie.
+| Commande | Fonction |
+|---|---|
+| Joystick haut | Avancer |
+| Joystick bas | Reculer |
+| Joystick gauche | Tourner à gauche |
+| Joystick droite | Tourner à droite |
+| Bouton 1 | Saluer |
+| Bouton 2 | Jouer une mélodie |
 
 ---
 
-# Conclusion
+# 9. Améliorations possibles
 
-Ce projet a permis de mettre en pratique plusieurs notions de robotique embarquée :
-- programmation ESP32 ;
-- contrôle de servomoteurs ;
-- communication Bluetooth ;
-- traitement des capteurs.
+Plusieurs améliorations pourraient être ajoutées au projet :
 
-Le robot fonctionne correctement et répond aux objectifs demandés pour la compétition.
+- ajout d’un gyroscope MPU6050 ;
+- correction automatique de trajectoire ;
+- réglage de vitesse via smartphone ;
+- meilleure autonomie de batterie ;
+- ajout d’un écran OLED ;
+- amélioration de l’évitement d’obstacles ;
+- optimisation de la stabilité.
+
+---
+
+# 10. Conclusion
+
+Ce projet nous a permis de découvrir plusieurs notions importantes en robotique embarquée.
+
+Nous avons appris à :
+- programmer un ESP32 ;
+- utiliser des servomoteurs ;
+- gérer une communication Bluetooth ;
+- contrôler des mouvements mécaniques ;
+- corriger des problèmes de stabilité.
+
+Malgré plusieurs difficultés techniques rencontrées pendant le développement, le robot a réussi à fonctionner correctement et à répondre aux objectifs fixés pour la compétition.
+
+Ce projet a également permis de mieux comprendre les contraintes réelles liées à la robotique mobile et à la programmation embarquée.
+
 
 
 
