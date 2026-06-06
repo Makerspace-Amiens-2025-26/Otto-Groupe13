@@ -44,7 +44,7 @@ L’ensemble du projet a été programmé sous Arduino IDE en langage C++.
 
 ## Vidéo de présentation
 
-sha256:aff76ea2632ca0c3f083fb53d9d84fd44d07dcdee51c93e69783e3b88ca61567
+[sha256:aff76ea2632ca0c3f083fb53d9d84fd44d07dcdee51c93e69783e3b88ca61567](https://release-assets.githubusercontent.com/github-production-release-asset/1144518680/e690b418-6375-4f27-91ff-2c57278077be?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-06-06T18%3A07%3A57Z&rscd=attachment%3B+filename%3DVideo.mov&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-06-06T17%3A07%3A18Z&ske=2026-06-06T18%3A07%3A57Z&sks=b&skv=2018-11-09&sig=0k9J1TdmHHujEAkuqvdD5YxCOPF8XXMVzt5RLNgm%2Fps%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4MDc2NjM3OCwibmJmIjoxNzgwNzY2MDc4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.jBXu9RyerK5M_8x4N96lbmtJpOSsyhZekA7cZ6D53dc&response-content-disposition=attachment%3B%20filename%3DVideo.mov&response-content-type=application%2Foctet-stream)
 
 ---
 
