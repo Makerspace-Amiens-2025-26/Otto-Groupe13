@@ -6,7 +6,7 @@ Projet réalisé dans le cadre du module de robotique embarquée à UniLaSalle A
 
 # Sommaire
 
-1. Présentation du projet  
+1. Présentation du projet et Vidéo
 2. Objectifs du projet  
 3. Matériel utilisé  
 4. Architecture du système  
@@ -14,12 +14,12 @@ Projet réalisé dans le cadre du module de robotique embarquée à UniLaSalle A
 6. Difficultés rencontrées et solutions apportées  
 7. Résultats obtenus  
 8. Guide d’utilisation  
-9. Améliorations possibles  
-10. Conclusion  
+9. Améliorations possibles   
+11. Conclusion  
 
 ---
 
-# 1. Présentation du projet
+# 1. Présentation du projet et Vidéo
 
 Dans le cadre du cours de robotique embarquée, nous avons travaillé sur un robot bipède Otto MKS basé sur une carte Seeed XIAO ESP32-C3.
 
@@ -41,6 +41,10 @@ Le robot dispose de plusieurs éléments :
 - une connexion Bluetooth BLE.
 
 L’ensemble du projet a été programmé sous Arduino IDE en langage C++.
+
+## Vidéo de présentation
+
+sha256:aff76ea2632ca0c3f083fb53d9d84fd44d07dcdee51c93e69783e3b88ca61567
 
 ---
 
